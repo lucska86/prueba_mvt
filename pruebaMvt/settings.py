@@ -57,7 +57,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 'DIRS': [ BASE_DIR / 'templates' ],
-        'DIRS': [r'C:\Users\Usuario\Desktop\principal\prueba_mvt\pruebaMvt\templates'],
+        # 'DIRS': [r'C:\Users\Usuario\Desktop\principal\prueba_mvt\pruebaMvt\templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

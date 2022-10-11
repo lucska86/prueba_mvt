@@ -2,8 +2,9 @@ from http.client import HTTPResponse
 from django.http import HttpResponse
 from datetime import datetime, timedelta
 from django.template import Context, Template, loader
+from  django.shortcuts import render, redirect
 import random
-from home.models import Persona
+from home.models import Humano
 
 
 
@@ -37,7 +38,7 @@ def mi_template(request):
 
 def tu_template(request,nombre):
 
-   template = loader.get_template('tu_template.html')
+   template = loader.get_template('home/tu_template.html')
    template_renderizado = template.render({'persona': nombre})
    return HttpResponse(template_renderizado)
 
@@ -48,37 +49,56 @@ def prueba_template(request):
    'valor_aleatorio': random.randrange(1,11)
    }
 
-   template = loader.get_template('prueba_template.html')
+   template = loader.get_template('home/prueba_template.html') 
    template_renderizado = template.render(mi_contexto)
 
    return HttpResponse(template_renderizado)
 
 
-# def crear_persona(request,nombre,apellido):
-def crear_persona(request,nombre,apellido):
+# def crear_persona(request):
+def crear_persona(request):
 
-   # persona = Persona(nombre=nombre,apellido=apellido,edad=random.randrange(1,99),fecha_nacimiento=datetime.now())
-   persona1 = Persona(nombre='Luis',apellido='Castro',edad=random.randrange(1,99),fecha_nacimiento=datetime.now())
-   persona2 = Persona(nombre='Hernan',apellido='Cruz',edad=random.randrange(1,99),fecha_nacimiento=datetime.now())
-   persona3 = Persona(nombre='Sergio',apellido='Lacostra',edad=random.randrange(1,99),fecha_nacimiento=datetime.now())
-   persona1.save()
-   persona2.save()
-   persona3.save()
+   if request.method == 'POST':
+      nombre = request.POST.get('nombre')
+      apellido = request.POST['apellido']
+      persona = Humano(nombre=nombre,apellido=apellido,edad=random.randrange(1,99),fecha_creacion=datetime.now())
+      persona.save()
 
-   template = loader.get_template('crear_persona.html')
+      return redirect('ver_personas')
+   
+   return render(request, 'home/crear_persona.html', {})
+
+   # persona1 = Humano(nombre='Luis',apellido='Castro',edad=random.randrange(1,99),fecha_nacimiento=datetime.now())
+   # persona2 = Humano(nombre='Hernan',apellido='Cruz',edad=random.randrange(1,99),fecha_nacimiento=datetime.now())
+   # persona3 = Humano(nombre='Sergio',apellido='Lacostra',edad=random.randrange(1,99),fecha_nacimiento=datetime.now())
+   # persona1.save()
+   # persona2.save()
+   # persona3.save()
+
+   # template = loader.get_template('crear_persona.html')
    # template_renderizado = template.render({'persona': persona})
-   template_renderizado = template.render({})
+   # template_renderizado = template.render({})
+   # return HttpResponse(template_renderizado) 
 
-
-   return HttpResponse(template_renderizado) 
-
+   # return render(request, 'crear_persona.html',{})
+   # return render(request, 'home/crear_persona.html',{}) 
 
 def ver_personas(request):
 
-   personas = Persona.objects.all()
+   print('==========================')
+   print(request.method)
+   print('==========================')
 
-   template = loader.get_template('ver_personas.html')
-   template_renderizado = template.render({'personas': personas})
+   personas = Humano.objects.all()
+
+   # template = loader.get_template('ver_personas.html')
+   # template_renderizado = template.render({'personas': personas})
+   # return HttpResponse(template_renderizado) 
+
+   return render(request, 'home/ver_personas.html',{'personas': personas}) 
+   # le decimos que queremos renderizar el archivo 'ver_personas.html'
 
 
-   return HttpResponse(template_renderizado) 
+def index(request):
+
+   return render(request, 'home/index.html')

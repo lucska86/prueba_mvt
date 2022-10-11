@@ -1,0 +1,18 @@
+{% extends 'home/index.html' %}
+
+{% block title_pagina %}
+<title>Ver personas</title>
+{% endblock title_pagina %}
+
+{% block h1_texto_header %}
+Ver personas
+{% endblock h1_texto_header %}
+
+{% block index_contenido %}
+<a class="navbar-brand" href={% url 'index' %}>Index</a>
+<p>Listado de personas: </p>
+{% for persona in personas  %}
+   <li>{{persona.nombre}} {{persona.apellido}} {{persona.edad}}</li>
+{% endfor %}
+{% endblock index_contenido %}
+
