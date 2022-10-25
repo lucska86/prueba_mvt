@@ -1,4 +1,4 @@
-## Bienvenido al repositorio de Coder House Clase 41765 - Entrega intermedia
+## Bienvenido al repositorio de Coder House Clase 41765 - Entrega final
 **Instalacion:**
 
 Debes tener instalado Django https://www.djangoproject.com/ una vez hayas clonado el proyecto, luego ejecutar el comando:
