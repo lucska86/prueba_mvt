@@ -10,6 +10,13 @@ class MiFormularioDeCreacion(UserCreationForm):
 
    class Meta:
       model = User
-      fields = ['username','email','password1','password2']
+      fields = ['username', 'email', 'password1', 'password2']
       help_texts = {key: '' for key in fields }
-      
+
+
+class EditarPerfilFormulario(forms.Form):
+   email = forms.CharField()
+   first_name = forms.CharField(label='Nombre')
+   last_name = forms.CharField(label='Apellido')
+   avatar = forms.ImageField(required=False)
+   
